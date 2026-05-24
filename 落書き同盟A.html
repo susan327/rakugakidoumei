@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>落書き同盟｜藤沢発・みんなの落書きを地域につなげるプロジェクト</title>
-  <meta name="description" content="落書き同盟は、藤沢を拠点に、子どもから大人まで誰もが自由に描ける場をつくり、落書きを展示・グッズ・地域の交流へつなげていくプロジェクトです。" />
+  <title>楽描き同盟｜藤沢発・みんなの楽描きを地域につなげるプロジェクト</title>
+  <meta name="description" content="楽描き同盟は、藤沢を拠点に、子どもから大人まで誰もが自由に描ける場をつくり、楽描きを展示・グッズ・地域の交流へつなげていくプロジェクトです。" />
   <style>
     :root {
       --ink: #252525;
@@ -172,7 +172,7 @@
       background: conic-gradient(from 20deg, var(--pink), var(--yellow), var(--green), var(--blue), var(--pink));
       color: #fff;
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
-      transform: rotate(-7deg);
+      transform: translateY(0);
     }
 
     .nav {
@@ -201,7 +201,7 @@
       background: rgba(248, 201, 78, 0.55);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.25s ease;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
       z-index: -1;
     }
 
@@ -241,7 +241,7 @@
 
     .nav-cta:hover,
     .button:hover {
-      transform: translateY(-3px) rotate(-1deg);
+      transform: translateY(-6px);
       box-shadow: 0 16px 28px rgba(37, 37, 37, 0.18);
     }
 
@@ -377,7 +377,7 @@
       border: 4px solid rgba(37,37,37,0.12);
       box-shadow: var(--shadow);
       overflow: hidden;
-      transform: rotate(1deg);
+      transform: translateY(0);
     }
 
     .wall::before,
@@ -422,7 +422,7 @@
     .l1 { color: var(--pink); width: 180px; height: 10px; left: 52%; top: 18%; transform: rotate(-18deg); }
     .l2 { color: var(--yellow); width: 120px; height: 12px; left: 18%; bottom: 28%; transform: rotate(23deg); }
     .l3 { color: var(--purple); width: 200px; height: 9px; right: 10%; top: 44%; transform: rotate(12deg); }
-    .l4 { color: var(--orange); width: 160px; height: 12px; left: 15%; top: 47%; transform: rotate(-7deg); }
+    .l4 { color: var(--orange); width: 160px; height: 12px; left: 15%; top: 47%; transform: translateY(0); }
 
     .paper-person {
       position: absolute;
@@ -488,7 +488,7 @@
       background: rgba(255,255,255,0.88);
       box-shadow: var(--shadow);
       border: 2px solid rgba(37,37,37,0.08);
-      transform: rotate(-4deg);
+      transform: translateY(0);
       animation: float 5s ease-in-out infinite reverse;
     }
 
@@ -507,7 +507,9 @@
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
       50% { transform: translateY(-14px) rotate(2deg); }
     }
 
@@ -642,7 +644,7 @@
     .tab-button.active {
       background: var(--ink);
       color: #fff;
-      transform: rotate(-1deg);
+      transform: translateY(0);
     }
 
     .tab-content {
@@ -699,11 +701,11 @@
       position: relative;
       padding: 28px 22px;
       min-height: 260px;
-      transition: transform 0.25s ease;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
     }
 
     .value-card:hover {
-      transform: translateY(-8px) rotate(-1deg);
+      transform: translateY(-10px);
     }
 
     .value-card:nth-child(1) { --accent: var(--pink); }
@@ -780,7 +782,7 @@
       background: var(--ink);
       color: #fff;
       font-weight: 900;
-      transform: rotate(-5deg);
+      transform: translateY(0);
     }
 
     .activity-card h3 {
@@ -898,7 +900,7 @@
     }
 
     .art-card:hover {
-      transform: translateY(-7px) rotate(1deg);
+      transform: translateY(-9px);
     }
 
     .art-image {
@@ -1072,6 +1074,14 @@
     .field label {
       font-weight: 900;
       color: #4d473f;
+    }
+
+    .optional-note {
+      display: inline-block;
+      margin-left: 6px;
+      color: var(--muted);
+      font-size: 0.86em;
+      font-weight: 700;
     }
 
     .field input,
@@ -1441,12 +1451,12 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a href="#top" class="logo" aria-label="落書き同盟 トップへ">
+      <a href="#top" class="logo" aria-label="楽描き同盟 トップへ">
         <span class="logo-mark">✎</span>
-        <span>落書き同盟</span>
+        <span>楽描き同盟</span>
       </a>
       <nav class="nav" id="nav">
-        <a href="#about">落書き同盟とは</a>
+        <a href="#about">楽描き同盟とは</a>
         <a href="#activity">活動内容</a>
         <a href="#record">これまで</a>
         <a href="#worker">運営の考え方</a>
@@ -1461,13 +1471,13 @@
       <div class="hero-text reveal">
         <div class="eyebrow">藤沢発・みんなの表現を地域へ</div>
         <h1>
-          <span>落書きから、</span><br>
+          <span>楽描きから、</span><br>
           <span class="highlight">まちが少し</span><br>
           <span>やさしくなる。</span>
         </h1>
         <p class="hero-copy">
           うまい・下手じゃなくて、その人から自然に出てくる線や色を大切にする。<br>
-          落書き同盟は、子どもも大人も、誰でも自由に描ける場をつくり、描いた落書きを展示・グッズ・地域の交流へつなげていくプロジェクトです。
+          楽描き同盟は、子どもも大人も、誰でも自由に描ける場をつくり、描いた楽描きを展示・グッズ・地域の交流へつなげていくプロジェクトです。
         </p>
         <div class="hero-actions">
           <a class="button primary" href="#contact">一緒にやってみる</a>
@@ -1484,7 +1494,7 @@
           </div>
           <div class="note-card">
             <strong>広がる</strong>
-            <p>落書きが展示やグッズ、地域の記憶になる。</p>
+            <p>楽描きが展示やグッズ、地域の記憶になる。</p>
           </div>
         </div>
       </div>
@@ -1510,9 +1520,9 @@
     <section id="about" class="reveal">
       <div class="section-title">
         <span class="tag">ABOUT</span>
-        <h2>落書き同盟とは</h2>
+        <h2>楽描き同盟とは</h2>
         <p>
-          落書き同盟は、誰かに評価されるための美術ではなく、日常の中から自然に生まれる表現を大切にする活動です。描いたものをその場で終わらせず、人・場所・地域へつないでいきます。
+          楽描き同盟は、誰かに評価されるための美術ではなく、日常の中から自然に生まれる表現を大切にする活動です。描いたものをその場で終わらせず、人・場所・地域へつないでいきます。
         </p>
       </div>
 
@@ -1521,7 +1531,7 @@
           <div>
             <h3>「絵が苦手」から始まるアートがある。</h3>
             <p>
-              子どもの線、大人のいたずら描き、高齢者の記憶、言葉にならない気持ち。落書きには、きれいに整える前の、その人らしさがあります。
+              子どもの線、大人のいたずら描き、高齢者の記憶、言葉にならない気持ち。楽描きには、きれいに整える前の、その人らしさがあります。
             </p>
             <p>
               私たちは、その小さな表現を集めて、展示やグッズ、空間づくり、地域のデザインへと育てていきたいと考えています。
@@ -1530,7 +1540,7 @@
         </article>
 
         <article class="soft-card tab-panel">
-          <div class="tabs" role="tablist" aria-label="落書き同盟の考え方">
+          <div class="tabs" role="tablist" aria-label="楽描き同盟の考え方">
             <button class="tab-button active" type="button" data-tab="tab1">大切にすること</button>
             <button class="tab-button" type="button" data-tab="tab2">参加できる人</button>
             <button class="tab-button" type="button" data-tab="tab3">目指す姿</button>
@@ -1539,7 +1549,7 @@
           <div class="tab-content active" id="tab1">
             <h3>うまさより、出てきた線を大切に。</h3>
             <p>
-              落書きは、完成度よりも「描いてみた」という一歩が魅力です。誰かの線に誰かの色が重なって、ひとりでは作れない景色が生まれます。
+              楽描きは、完成度よりも「描いてみた」という一歩が魅力です。誰かの線に誰かの色が重なって、ひとりでは作れない景色が生まれます。
             </p>
             <ul>
               <li>自由に描ける安心感</li>
@@ -1561,13 +1571,13 @@
           </div>
 
           <div class="tab-content" id="tab3">
-            <h3>落書きを、地域の記憶へ。</h3>
+            <h3>楽描きを、地域の記憶へ。</h3>
             <p>
-              ワークショップで終わらせず、展示、グッズ、施設の彩り、地域イベントなどにつなげることで、何気ない落書きをまちの中に残していきます。
+              ワークショップで終わらせず、展示、グッズ、施設の彩り、地域イベントなどにつなげることで、何気ない楽描きをまちの中に残していきます。
             </p>
             <ul>
               <li>地域施設での展示</li>
-              <li>落書きから生まれるグッズ</li>
+              <li>楽描きから生まれるグッズ</li>
               <li>藤沢発の新しい表現文化</li>
             </ul>
           </div>
@@ -1579,7 +1589,7 @@
       <div class="section-title center">
         <span class="tag">VALUES</span>
         <h2>4つの合言葉</h2>
-        <p>落書き同盟が大切にしたい、シンプルだけど強い考え方です。</p>
+        <p>楽描き同盟が大切にしたい、シンプルだけど強い考え方です。</p>
       </div>
       <div class="values">
         <article class="value-card">
@@ -1600,7 +1610,7 @@
         <article class="value-card">
           <div class="value-icon">4</div>
           <h3>形を変える</h3>
-          <p>落書きがグッズやデザイン、空間づくりに変わる。小さな線が新しい価値になります。</p>
+          <p>楽描きがグッズやデザイン、空間づくりに変わる。小さな線が新しい価値になります。</p>
         </article>
       </div>
     </section>
@@ -1617,7 +1627,7 @@
         <article class="activity-card">
           <div class="activity-number">01</div>
           <div>
-            <h3>落書きワークショップ</h3>
+            <h3>楽描きワークショップ</h3>
             <p>大きな紙や壁面に、参加者が自由に描く場をつくります。親子イベント、地域イベント、福祉・教育の場にも展開できます。</p>
           </div>
         </article>
@@ -1632,14 +1642,14 @@
           <div class="activity-number">03</div>
           <div>
             <h3>グッズ・デザイン化</h3>
-            <p>落書きの一部を切り出して、Tシャツ、ステッカー、ポスター、ロゴ、公共デザインなどへ展開する可能性を探ります。</p>
+            <p>楽描きの一部を切り出して、Tシャツ、ステッカー、ポスター、ロゴ、公共デザインなどへ展開する可能性を探ります。</p>
           </div>
         </article>
         <article class="activity-card">
           <div class="activity-number">04</div>
           <div>
             <h3>ホームページ・SNS発信</h3>
-            <p>活動の記録、作品紹介、参加募集、協力者募集を発信。落書き同盟のアジトとして、情報が集まる場所をつくります。</p>
+            <p>活動の記録、作品紹介、参加募集、協力者募集を発信。楽描き同盟のアジトとして、情報が集まる場所をつくります。</p>
           </div>
         </article>
       </div>
@@ -1653,7 +1663,7 @@
             これまでに、2歳から101歳までの参加者が関わった共同作品が、藤沢市民会館のクロージングイベントで展示されました。
           </p>
           <p>
-            気軽に描いた落書きが、地域の公共的な場所に飾られる。そんな体験が、落書き同盟の大きな原点になっています。
+            気軽に描いた楽描きが、地域の公共的な場所に飾られる。そんな体験が、楽描き同盟の大きな原点になっています。
           </p>
         </div>
         <div class="record-stats">
@@ -1680,7 +1690,7 @@
     <section class="reveal">
       <div class="section-title center">
         <span class="tag">GALLERY</span>
-        <h2>落書きが変身する場所</h2>
+        <h2>楽描きが変身する場所</h2>
         <p>実際の作品写真が入ったら、ここをギャラリーとして使えます。今は試作用のイメージ枠です。</p>
       </div>
 
@@ -1709,7 +1719,7 @@
         <article class="art-card" data-category="goods">
           <div class="art-image"></div>
           <div class="art-body">
-            <h3>落書きからグッズへ</h3>
+            <h3>楽描きからグッズへ</h3>
             <p>子どもの線や地域の絵が、ステッカーやTシャツになるかも。</p>
           </div>
         </article>
@@ -1743,7 +1753,7 @@
           <span class="tag">WORKERS COLLECTIVE</span>
           <h2>できる人が、できることを持ち寄る。</h2>
           <p>
-            落書き同盟は、将来的にワーカーズ・コレクティブ型の運営も視野に入れています。誰かひとりが背負うのではなく、描く人、企画する人、広報する人、Webを作る人、場所をつなぐ人が、それぞれの得意を持ち寄る形です。
+            楽描き同盟は、将来的にワーカーズ・コレクティブ型の運営も視野に入れています。誰かひとりが背負うのではなく、描く人、企画する人、広報する人、Webを作る人、場所をつなぐ人が、それぞれの得意を持ち寄る形です。
           </p>
           <p>
             まだ始まったばかりだからこそ、完成された組織ではなく、みんなで育てていく余白を大切にします。
@@ -1767,7 +1777,7 @@
       <div class="future-board">
         <article class="future-card">
           <h3>月1ミーティング</h3>
-          <p>落書き同盟の活動内容やHP、展示、グッズ化について話す場をつくります。</p>
+          <p>楽描き同盟の活動内容やHP、展示、グッズ化について話す場をつくります。</p>
         </article>
         <article class="future-card">
           <h3>作品アーカイブ</h3>
@@ -1775,13 +1785,13 @@
         </article>
         <article class="future-card">
           <h3>地域連携</h3>
-          <p>藤沢の施設、団体、お店、イベントと連携し、落書きが活躍する場所を増やします。</p>
+          <p>藤沢の施設、団体、お店、イベントと連携し、楽描きが活躍する場所を増やします。</p>
         </article>
       </div>
 
       <div class="topic-box">
         <div>
-          <h3>今日の落書きお題</h3>
+          <h3>今日の楽描きお題</h3>
           <p id="topicText">ボタンを押すと、気軽に描けるお題が出ます。</p>
         </div>
         <button class="button secondary" id="topicButton" type="button">お題を出す</button>
@@ -1791,26 +1801,43 @@
     <section id="contact" class="contact reveal">
       <div class="contact-card">
         <div class="contact-side">
-          <h2>一緒に、一本の線から始めませんか。</h2>
+          <h2>参加・ご相談フォーム</h2>
           <p>
-            参加したい人、場所を貸せる人、展示やイベントで連携したい人、Webや印刷で手伝える人。まずは気軽に声をかけてください。
+            参加したい人、場所を貸せる人、展示やイベントで連携したい人、Webや印刷で手伝える人。まずは気軽に相談してください。
           </p>
           <p>
-            落書き同盟は、藤沢から少しずつ広がっていく途中のプロジェクトです。
+            楽描き同盟は、藤沢から少しずつ広がっていく途中のプロジェクトです。
           </p>
         </div>
         <form class="contact-form" id="contactForm">
           <div class="field">
             <label for="name">お名前</label>
-            <input id="name" name="name" type="text" placeholder="例：落書き 太郎" required>
+            <input id="name" name="name" type="text" placeholder="例：楽描き 太郎" required>
           </div>
           <div class="field">
-            <label for="type">関わり方</label>
+            <label for="organization">会社・団体名 <span class="optional-note">（法人・団体の場合）</span></label>
+            <input id="organization" name="organization" type="text" placeholder="例：〇〇株式会社／〇〇団体">
+          </div>
+
+          <div class="field">
+            <label for="email">メールアドレス</label>
+            <input id="email" name="email" type="email" placeholder="例：rakugaki@example.com">
+          </div>
+
+          <div class="field">
+            <label for="phone">電話番号 <span class="optional-note">任意</span></label>
+            <input id="phone" name="phone" type="tel" placeholder="例：090-1234-5678">
+          </div>
+          <div class="field">
+            <label for="type">参加・相談内容</label>
             <select id="type" name="type">
-              <option>参加してみたい</option>
-              <option>親子で参加したい</option>
+              <option value="">選んでください</option>
+              <option>楽描きイベントに参加してみたい</option>
+              <option>親子で参加してみたい</option>
               <option>施設・団体として相談したい</option>
+              <option>展示・イベント連携を相談したい</option>
               <option>Web・印刷・企画で協力したい</option>
+              <option>取材・メディアについて</option>
               <option>その他</option>
             </select>
           </div>
@@ -1818,9 +1845,9 @@
             <label for="message">メッセージ</label>
             <textarea id="message" name="message" placeholder="気になること、やってみたいことを書いてください。"></textarea>
           </div>
-          <button class="button primary" type="submit">送信する</button>
+          <button class="button primary" type="submit">参加・相談を送る</button>
           <div class="form-message" id="formMessage">
-            ありがとうございます！これは試作ページなので実際には送信されていません。フォーム連携を入れる場合は、Googleフォーム・Formspree・Flaskなどに接続できます。
+            ありがとうございます！これは試作ページなので実際には送信されていません。実運用では、Googleフォーム・Formspree・Flaskなどに接続できます。
           </div>
         </form>
       </div>
@@ -1828,7 +1855,7 @@
   </main>
 
   <footer class="footer">
-    <div>落書き同盟｜藤沢発・みんなの落書きを地域につなげるプロジェクト</div>
+    <div>楽描き同盟｜藤沢発・みんなの楽描きを地域につなげるプロジェクト</div>
     <div>© Rakugaki Doumei. Trial Website.</div>
   </footer>
 
@@ -1922,7 +1949,7 @@
     const topics = [
       '今日の気分を、線だけで描いてみよう。',
       '藤沢の好きな場所を、色で表してみよう。',
-      '子どものころの自分に渡したい落書きを描こう。',
+      '子どものころの自分に渡したい楽描きを描こう。',
       '「やさしさ」を形にしたら、どんな模様になる？',
       '隣の人の線に、ひとつ色を足してみよう。',
       '失敗した線を、あえて主役にしてみよう。',
@@ -1942,6 +1969,24 @@
         duration: 300,
         easing: 'ease-out'
       });
+    });
+
+
+    const typeSelect = document.getElementById('type');
+    const messageField = document.getElementById('message');
+
+    const messageExamples = {
+      '楽描きイベントに参加してみたい': '例：次回イベントの日程を知りたいです。',
+      '親子で参加してみたい': '例：小学生の子どもと一緒に参加したいです。',
+      '施設・団体として相談したい': '例：地域施設でワークショップ開催を相談したいです。',
+      '展示・イベント連携を相談したい': '例：イベント内で展示企画をお願いしたいです。',
+      'Web・印刷・企画で協力したい': '例：チラシ制作やHP制作で協力できます。',
+      '取材・メディアについて': '例：活動について取材させていただきたいです。'
+    };
+
+    typeSelect.addEventListener('change', () => {
+      const selected = typeSelect.value;
+      messageField.placeholder = messageExamples[selected] || '気になること、やってみたいことを書いてください。';
     });
 
     const contactForm = document.getElementById('contactForm');
