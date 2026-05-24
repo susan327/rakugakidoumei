@@ -23,7 +23,9 @@
       --container: min(1180px, calc(100% - 44px));
     }
 
-    * {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
@@ -63,17 +65,23 @@
     }
 
     h1,
-    h2,
-    h3,
+    .hero h1 span,
     .button,
     .nav a,
     .tag,
     .eyebrow,
     .note-card strong,
-    .value-card h3,
-    .activity-card h3 {
+    .tab-button,
+    .filter-button {
       word-break: keep-all;
       overflow-wrap: normal;
+      text-wrap: balance;
+    }
+
+    h2,
+    h3 {
+      word-break: normal;
+      overflow-wrap: break-word;
       text-wrap: balance;
     }
 
@@ -85,6 +93,44 @@
     textarea,
     select {
       overflow-wrap: break-word;
+    }
+
+    img,
+    svg,
+    canvas,
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .hero > *,
+    .about-grid > *,
+    .activity-wrap > *,
+    .record > *,
+    .worker-box > *,
+    .contact-card > *,
+    .values > *,
+    .future-board > *,
+    .gallery > *,
+    .topic-box > * {
+      min-width: 0;
+    }
+
+    .big-card,
+    .soft-card,
+    .value-card,
+    .activity-card,
+    .record,
+    .worker-box,
+    .contact-card,
+    .contact-side,
+    .contact-form,
+    .worker-list,
+    .worker-item,
+    .topic-box,
+    .future-card,
+    .art-card {
+      max-width: 100%;
     }
 
     .site-header {
@@ -316,6 +362,8 @@
     .hero-art {
       position: relative;
       min-height: clamp(430px, 48vw, 580px);
+      overflow: hidden;
+      border-radius: 44px;
     }
 
     .wall {
@@ -987,6 +1035,7 @@
     }
 
     .contact-side {
+      min-width: 0;
       padding: clamp(28px, 4vw, 42px);
       color: #fff;
       background:
@@ -1009,6 +1058,7 @@
     }
 
     .contact-form {
+      min-width: 0;
       padding: clamp(28px, 4vw, 42px);
       display: grid;
       gap: 16px;
@@ -1366,6 +1416,18 @@
 
       .gallery-tools {
         grid-template-columns: 1fr;
+      }
+
+      .contact-side,
+      .contact-form,
+      .worker-box,
+      .record,
+      .topic-box {
+        padding: 22px;
+      }
+
+      .contact-side h2 {
+        font-size: clamp(26px, 8vw, 34px);
       }
 
       .record h2,
