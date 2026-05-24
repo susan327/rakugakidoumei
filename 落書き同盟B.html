@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>落書き同盟｜藤沢発・落書きを地域につなげる表現プロジェクト</title>
+  <meta name="description" content="落書き同盟は、藤沢を拠点に、子どもから大人まで誰もが自由に表現できる場をつくり、落書きを地域の展示・交流・デザインへつなげるプロジェクトです。">
+  <style>
+    :root {
+      --ink: #24302f;
+      --muted: #667270;
+      --paper: #fffdf5;
+      --line: #dce8e2;
+      --green: #4d9b72;
+      --deep-green: #1f6d4b;
+      --blue: #4c91b8;
+      --orange: #d89545;
+      --yellow: #f4cf67;
+      --pink: #d9899f;
+      --shadow: 0 18px 42px rgba(36, 48, 47, 0.10);
+      --radius: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(77,155,114,0.12), transparent 24%),
+        radial-gradient(circle at 88% 18%, rgba(76,145,184,0.10), transparent 28%),
+        linear-gradient(135deg, #fbfff9 0%, #f5fbf7 52%, #fffdf5 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(36,48,47,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36,48,47,0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,253,245,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(36,48,47,0.10);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, var(--deep-green), var(--blue));
+      box-shadow: 0 10px 20px rgba(36,48,47,0.14);
+      transform: rotate(-3deg);
+      font-size: 22px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #44514f;
+    }
+
+    .nav a {
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s ease;
+    }
+
+    .nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav .cta {
+      padding: 11px 17px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--deep-green);
+      box-shadow: 0 10px 20px rgba(31,109,75,0.18);
+    }
+
+    .nav .cta::after {
+      display: none;
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 80px 22px 72px;
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 48px;
+      align-items: center;
+      min-height: 720px;
+    }
+
+    .eyebrow,
+    .label {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(77,155,114,0.12);
+      color: var(--deep-green);
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .label {
+      display: inline-block;
+      padding: 8px 13px;
+      font-size: 13px;
+    }
+
+    .hero h1 {
+      margin: 22px 0 20px;
+      font-size: clamp(42px, 6.8vw, 82px);
+      line-height: 1.06;
+      letter-spacing: -0.06em;
+    }
+
+    .hero h1 span {
+      color: var(--deep-green);
+    }
+
+    .hero-copy {
+      margin: 0;
+      max-width: 660px;
+      color: #54615f;
+      font-size: clamp(17px, 1.8vw, 20px);
+      line-height: 1.95;
+      font-weight: 650;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 13px 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 24px rgba(36,48,47,0.13);
+    }
+
+    .button.primary {
+      background: var(--deep-green);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(31,109,75,0.18);
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .trust-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 34px;
+      max-width: 680px;
+    }
+
+    .trust-item {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(36,48,47,0.06);
+    }
+
+    .trust-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 18px;
+      color: var(--deep-green);
+    }
+
+    .trust-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 650;
+      font-size: 13px;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 540px;
+    }
+
+    .visual-card {
+      position: absolute;
+      inset: 28px 0 24px;
+      border-radius: 38px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,255,255,0.58)),
+        var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .visual-card::before {
+      content: "";
+      position: absolute;
+      inset: 34px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 20% 22%, rgba(216,137,159,0.32), transparent 19%),
+        radial-gradient(circle at 78% 28%, rgba(76,145,184,0.28), transparent 21%),
+        radial-gradient(circle at 62% 74%, rgba(77,155,114,0.30), transparent 24%),
+        linear-gradient(135deg, #fff7e2, #f7fbf8);
+      border: 1px solid rgba(36,48,47,0.10);
+    }
+
+    .visual-card::after {
+      content: "落書き → 展示 → 地域の記憶";
+      position: absolute;
+      left: 54px;
+      right: 54px;
+      bottom: 54px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.86);
+      color: var(--ink);
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 0 12px 24px rgba(36,48,47,0.10);
+    }
+
+    .visual-line {
+      position: absolute;
+      border-radius: 999px;
+      opacity: 0.82;
+      z-index: 2;
+    }
+
+    .line-1 { width: 210px; height: 10px; left: 66px; top: 130px; background: var(--pink); transform: rotate(-18deg); }
+    .line-2 { width: 260px; height: 12px; right: 70px; top: 210px; background: var(--blue); transform: rotate(14deg); }
+    .line-3 { width: 190px; height: 11px; left: 115px; bottom: 170px; background: var(--green); transform: rotate(8deg); }
+    .line-4 { width: 150px; height: 12px; right: 120px; bottom: 205px; background: var(--yellow); transform: rotate(-10deg); }
+
+    .floating-note {
+      position: absolute;
+      right: 4px;
+      top: 34px;
+      z-index: 4;
+      width: 220px;
+      padding: 18px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
+    }
+
+    .floating-note strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--deep-green);
+      font-size: 20px;
+    }
+
+    .floating-note p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 76px 22px;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .section-title.center {
+      justify-items: center;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(32px, 4.8vw, 56px);
+      line-height: 1.18;
+      letter-spacing: -0.05em;
+    }
+
+    .section-title p {
+      max-width: 790px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.95;
+      font-weight: 650;
+      font-size: 17px;
+    }
+
+    .about-grid,
+    .partners-grid,
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card,
+    .partner-card,
+    .workers-box,
+    .contact-card,
+    .form-card,
+    .faq-item,
+    .program-card {
+      background: rgba(255,255,255,0.84);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .card,
+    .partner-card,
+    .contact-card,
+    .form-card,
+    .program-card {
+      border-radius: var(--radius);
+    }
+
+    .message-card,
+    .partner-card,
+    .contact-card,
+    .form-card {
+      padding: 34px;
+    }
+
+    .message-card h3,
+    .partner-card h3 {
+      margin: 0 0 14px;
+      font-size: 30px;
+      line-height: 1.35;
+      letter-spacing: -0.04em;
+    }
+
+    .message-card p,
+    .partner-card p,
+    .workers-box p,
+    .contact-card p {
+      color: var(--muted);
+      line-height: 1.95;
+      font-weight: 650;
+    }
+
+    .principles {
+      padding: 26px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .principle {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .principle-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--green);
+      font-weight: 900;
+    }
+
+    .principle h3 {
+      margin: 0 0 6px;
+      font-size: 21px;
+    }
+
+    .principle p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 650;
+    }
+
+    .programs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .program-card {
+      padding: 26px;
+      min-height: 260px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .program-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 36px rgba(36,48,47,0.12);
+    }
+
+    .program-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      color: #fff;
+      background: var(--deep-green);
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .program-card:nth-child(2) .program-icon { background: var(--blue); }
+    .program-card:nth-child(3) .program-icon { background: var(--orange); }
+    .program-card:nth-child(4) .program-icon { background: var(--pink); }
+
+    .program-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .program-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.82;
+      font-weight: 650;
+    }
+
+    .record-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      padding: 42px;
+      border-radius: 38px;
+      background: linear-gradient(135deg, rgba(31,109,75,0.93), rgba(76,145,184,0.88)), var(--deep-green);
+      color: #fff;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .record-panel::after {
+      content: "FUJISAWA";
+      position: absolute;
+      right: -18px;
+      bottom: -24px;
+      color: rgba(255,255,255,0.08);
+      font-size: 96px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      pointer-events: none;
+    }
+
+    .record-panel h2 {
+      margin: 0 0 16px;
+      font-size: clamp(32px, 4.8vw, 58px);
+      line-height: 1.13;
+      letter-spacing: -0.05em;
+    }
+
+    .record-panel p {
+      color: rgba(255,255,255,0.84);
+      line-height: 1.95;
+      font-weight: 650;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      align-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(8px);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 36px;
+      color: #fff9cf;
+    }
+
+    .stat span {
+      color: rgba(255,255,255,0.86);
+      font-weight: 800;
+      line-height: 1.6;
+    }
+
+    .partner-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .partner-item {
+      padding: 17px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-weight: 800;
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .partner-item span {
+      color: var(--deep-green);
+      font-weight: 900;
+    }
+
+    .workers-box {
+      padding: 38px;
+      border-radius: 38px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .workers-box h2,
+    .contact-card h2 {
+      margin: 0 0 16px;
+      font-size: clamp(30px, 4.4vw, 52px);
+      line-height: 1.16;
+      letter-spacing: -0.05em;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .role {
+      padding: 18px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-weight: 850;
+      line-height: 1.65;
+    }
+
+    .role b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--deep-green);
+      font-size: 18px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 18px 20px;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 900;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 20px;
+      color: var(--muted);
+      line-height: 1.85;
+      font-weight: 650;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .faq-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(77,155,114,0.12);
+      color: var(--deep-green);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      font-weight: 900;
+    }
+
+    .contact-points {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .contact-points div {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(77,155,114,0.10);
+      color: #2f6d4c;
+      font-weight: 900;
+    }
+
+    .form-card {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-weight: 900;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid #cad9d2;
+      border-radius: 16px;
+      background: #fbfff9;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(77,155,114,0.14);
+    }
+
+    .form-message {
+      display: none;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(77,155,114,0.12);
+      color: var(--deep-green);
+      font-weight: 900;
+      line-height: 1.7;
+    }
+
+    .form-message.show {
+      display: block;
+    }
+
+    .footer {
+      padding: 30px 22px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      font-weight: 800;
+      line-height: 1.7;
+      background: rgba(255,253,245,0.86);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 940px) {
+      .menu-button {
+        display: block;
+      }
+
+      .nav {
+        position: fixed;
+        top: 74px;
+        left: 16px;
+        right: 16px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 18px;
+        border-radius: 24px;
+        background: rgba(255,255,255,0.98);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .hero,
+      .about-grid,
+      .record-panel,
+      .partners-grid,
+      .workers-box,
+      .contact-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 48px;
+        min-height: auto;
+      }
+
+      .hero-visual {
+        min-height: 480px;
+      }
+
+      .programs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 46px;
+      }
+
+      .trust-list,
+      .programs,
+      .stats,
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 58px 18px;
+      }
+
+      .hero-visual {
+        min-height: 380px;
+      }
+
+      .floating-note {
+        right: 10px;
+        width: 190px;
+      }
+
+      .visual-card::after {
+        left: 28px;
+        right: 28px;
+        bottom: 36px;
+        font-size: 13px;
+      }
+
+      .message-card,
+      .record-panel,
+      .workers-box,
+      .contact-card,
+      .form-card,
+      .partner-card {
+        padding: 26px;
+      }
+
+      .principle {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#top" class="brand" aria-label="落書き同盟トップへ">
+        <span class="brand-mark">✎</span>
+        <span>落書き同盟</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#about">私たちについて</a>
+        <a href="#program">活動内容</a>
+        <a href="#record">実績</a>
+        <a href="#partner">連携</a>
+        <a href="#contact" class="cta">相談・参加</a>
+      </nav>
+      <button class="menu-button" id="menuButton" type="button" aria-label="メニューを開く">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-text reveal">
+        <div class="eyebrow">藤沢発・地域とつながる表現プロジェクト</div>
+        <h1>落書きから、<br><span>人とまちの居場所</span>をつくる。</h1>
+        <p class="hero-copy">落書き同盟は、子どもから大人まで誰もが自由に表現できる場をつくり、そこで生まれた線や色を、展示・交流・デザイン・地域活動へつなげていくプロジェクトです。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact">参加・連携を相談する</a>
+          <a class="button secondary" href="#program">活動内容を見る</a>
+        </div>
+        <div class="trust-list">
+          <div class="trust-item"><strong>誰でも参加</strong><p>絵が得意な人も苦手な人も、安心して表現できる場を目指します。</p></div>
+          <div class="trust-item"><strong>地域に残す</strong><p>その場限りで終わらせず、展示や記録としてまちにつなげます。</p></div>
+          <div class="trust-item"><strong>協同で育てる</strong><p>できる人ができることを持ち寄る運営を大切にします。</p></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="visual-card">
+          <span class="visual-line line-1"></span>
+          <span class="visual-line line-2"></span>
+          <span class="visual-line line-3"></span>
+          <span class="visual-line line-4"></span>
+        </div>
+        <div class="floating-note">
+          <strong>絵心は、取り戻せる。</strong>
+          <p>うまさよりも、その人から自然に出てくる表現を大切にします。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <div class="section-title">
+        <span class="label">ABOUT</span>
+        <h2>落書き同盟について</h2>
+        <p>落書き同盟は、「落書き」を単なる遊びや一時的な表現で終わらせず、人と人、地域と施設、子どもと大人がつながる入口として育てていく活動です。</p>
+      </div>
+      <div class="about-grid">
+        <article class="card message-card">
+          <h3>うまい・下手ではなく、自然に出てきた線を大切に。</h3>
+          <p>子どもの線、大人のいたずら描き、高齢者の記憶、言葉にならない気持ち。落書きには、整える前のその人らしさがあります。</p>
+          <p>私たちは、その表現を集め、展示やグッズ、空間づくり、地域の交流へとつなげていきたいと考えています。</p>
+        </article>
+        <div class="card principles">
+          <article class="principle"><div class="principle-icon">1</div><div><h3>安心して描ける場</h3><p>絵の技術や経験に関係なく、誰でも参加できる雰囲気を大切にします。</p></div></article>
+          <article class="principle"><div class="principle-icon">2</div><div><h3>世代や立場をこえる交流</h3><p>子ども、保護者、地域の人、福祉・教育に関わる人が自然に混ざる場を目指します。</p></div></article>
+          <article class="principle"><div class="principle-icon">3</div><div><h3>地域へつなげる表現</h3><p>描いたものを展示・記録・デザインへ展開し、地域の中に残る形を考えます。</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="program" class="reveal">
+      <div class="section-title center">
+        <span class="label">PROGRAM</span>
+        <h2>主な活動内容</h2>
+        <p>地域の施設・団体・イベントと連携しながら、小さく試し、続けられる形へ育てていきます。</p>
+      </div>
+      <div class="programs">
+        <article class="program-card"><div class="program-icon">✎</div><h3>落書きワークショップ</h3><p>大きな紙や壁面を使い、参加者が自由に描ける場をつくります。親子イベントにも展開できます。</p></article>
+        <article class="program-card"><div class="program-icon">人</div><h3>共同制作</h3><p>複数人でひとつの作品をつくり、会話や交流が自然に生まれる時間を設計します。</p></article>
+        <article class="program-card"><div class="program-icon">展</div><h3>展示・記録</h3><p>作品を写真や展示として残し、描いた人が後から見に行ける地域の記憶にします。</p></article>
+        <article class="program-card"><div class="program-icon">広</div><h3>発信・デザイン化</h3><p>HPやSNSで活動を紹介し、グッズやポスターなどへの展開も検討します。</p></article>
+      </div>
+    </section>
+
+    <section id="record" class="reveal">
+      <div class="record-panel">
+        <div>
+          <h2>すでに地域へ届いた落書きがあります。</h2>
+          <p>これまでに、2歳から101歳までが関わった共同作品が、藤沢市民会館のクロージングイベントで展示されました。何気なく描いた落書きが、公共的な場所に飾られる。これは落書き同盟の大切な原点です。</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong data-count="2">0</strong><span>歳から参加</span></div>
+          <div class="stat"><strong data-count="101">0</strong><span>歳まで参加</span></div>
+          <div class="stat"><strong data-count="40">0</strong><span>人ほどで共同制作</span></div>
+          <div class="stat"><strong>藤沢</strong><span>市民会館で展示</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="partner" class="reveal">
+      <div class="section-title">
+        <span class="label">PARTNER</span>
+        <h2>地域の施設・団体のみなさまへ</h2>
+        <p>落書き同盟は、地域の居場所づくり、親子イベント、福祉・教育の場、施設の空間づくりなど、さまざまな形での連携を検討しています。</p>
+      </div>
+      <div class="partners-grid">
+        <article class="partner-card">
+          <h3>一緒に形を考えるところから。</h3>
+          <p>決まったパッケージを押しつけるのではなく、場所の特徴、参加者の年齢、目的、予算、運営体制に合わせて、無理のない形を一緒に考えます。</p>
+          <p>「子どもたちが自由に描けるイベントをしたい」「使われていない壁を明るくしたい」「地域の人が混ざる場をつくりたい」など、まずはご相談ください。</p>
+        </article>
+        <div class="partner-list">
+          <div class="partner-item"><span>01</span> 親子向け・子ども向けの表現ワークショップ</div>
+          <div class="partner-item"><span>02</span> 地域施設やイベントでの共同制作・展示</div>
+          <div class="partner-item"><span>03</span> 壁面・空間を活かした彩りづくり</div>
+          <div class="partner-item"><span>04</span> 作品の記録、HP・SNSでの発信支援</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="workers-box">
+        <div>
+          <span class="label">WORKERS COLLECTIVE</span>
+          <h2>できる人が、できることを持ち寄る。</h2>
+          <p>将来的には、ワーカーズ・コレクティブ型の運営も視野に入れています。誰かひとりが背負うのではなく、描く人、企画する人、場所をつなぐ人、発信する人が、それぞれの得意を持ち寄る形です。</p>
+          <p>まだ始まったばかりだからこそ、完成された組織ではなく、みんなで育てていく余白を大切にします。</p>
+        </div>
+        <div class="role-grid">
+          <div class="role"><b>描く人</b>自由な表現を生み出す</div>
+          <div class="role"><b>つなぐ人</b>地域や団体とつなげる</div>
+          <div class="role"><b>作る人</b>HP・SNS・印刷物で発信する</div>
+          <div class="role"><b>支える人</b>活動が続く仕組みを考える</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-title center">
+        <span class="label">FAQ</span>
+        <h2>よくある質問</h2>
+        <p>参加や連携を検討する方に向けた、基本的な案内です。</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item open"><button class="faq-question" type="button">絵が苦手でも参加できますか？<span class="faq-mark">−</span></button><div class="faq-answer">もちろん参加できます。落書き同盟では、うまさよりも「描いてみること」「誰かと一緒に楽しむこと」を大切にしています。</div></div>
+        <div class="faq-item"><button class="faq-question" type="button">子どもだけでなく大人も参加できますか？<span class="faq-mark">＋</span></button><div class="faq-answer">はい。子ども、大人、高齢者、親子、地域の方など、世代や立場をこえて混ざれる場を目指しています。</div></div>
+        <div class="faq-item"><button class="faq-question" type="button">施設や団体として相談できますか？<span class="faq-mark">＋</span></button><div class="faq-answer">相談できます。親子イベント、地域交流、壁面や空間の活用、展示企画など、目的に合わせて一緒に形を考えます。</div></div>
+        <div class="faq-item"><button class="faq-question" type="button">ワーカーズ・コレクティブとは何ですか？<span class="faq-mark">＋</span></button><div class="faq-answer">ここでは、できる人ができることを持ち寄り、活動を協同で育てる運営の考え方として紹介しています。正式な形は、今後相談しながら検討していきます。</div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="contact-wrap">
+        <article class="contact-card">
+          <h2>参加・連携のご相談</h2>
+          <p>落書き同盟に参加してみたい方、親子で関わりたい方、地域施設・団体として相談したい方、Web・SNS・印刷などで協力したい方は、こちらからご連絡ください。</p>
+          <div class="contact-points">
+            <div>参加したい</div>
+            <div>親子イベントを相談したい</div>
+            <div>施設・団体で連携したい</div>
+            <div>HP・SNS・印刷で協力したい</div>
+          </div>
+        </article>
+        <form class="form-card" id="contactForm">
+          <div class="field"><label for="name">お名前</label><input id="name" name="name" type="text" placeholder="例：落書き 太郎" required></div>
+          <div class="field"><label for="type">ご相談内容</label><select id="type" name="type"><option>参加してみたい</option><option>親子で参加したい</option><option>施設・団体として相談したい</option><option>Web・SNS・印刷で協力したい</option><option>その他</option></select></div>
+          <div class="field"><label for="message">メッセージ</label><textarea id="message" name="message" placeholder="気になること、やってみたいことを書いてください。"></textarea></div>
+          <button class="button primary" type="submit">送信する</button>
+          <div class="form-message" id="formMessage">ありがとうございます。これは試作ページなので実際には送信されていません。実運用ではGoogleフォーム、Formspree、Flaskなどに接続できます。</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>落書き同盟｜藤沢発・落書きを地域につなげる表現プロジェクト</div>
+    <div>© Rakugaki Doumei. Trial Website.</div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var menuButton = document.getElementById('menuButton');
+      var nav = document.getElementById('nav');
+      var record = document.getElementById('record');
+      var contactForm = document.getElementById('contactForm');
+      var formMessage = document.getElementById('formMessage');
+
+      function runSelfTests() {
+        console.assert(document.querySelector('.site-header'), 'TEST: header exists');
+        console.assert(document.querySelectorAll('.program-card').length === 4, 'TEST: four program cards exist');
+        console.assert(document.querySelectorAll('.faq-item').length === 4, 'TEST: four FAQ items exist');
+        console.assert(menuButton !== null && nav !== null, 'TEST: mobile menu elements exist');
+        console.assert(contactForm !== null && formMessage !== null, 'TEST: contact form elements exist');
+      }
+
+      if (menuButton && nav) {
+        menuButton.addEventListener('click', function () {
+          var isOpen = nav.classList.toggle('open');
+          menuButton.textContent = isOpen ? '×' : '☰';
+        });
+
+        nav.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            nav.classList.remove('open');
+            menuButton.textContent = '☰';
+          });
+        });
+      }
+
+      var revealTargets = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.14 });
+
+        revealTargets.forEach(function (target) {
+          revealObserver.observe(target);
+        });
+      } else {
+        revealTargets.forEach(function (target) {
+          target.classList.add('visible');
+        });
+      }
+
+      var statNumbers = document.querySelectorAll('[data-count]');
+      var statsAnimated = false;
+
+      function animateStats() {
+        if (statsAnimated) return;
+        statsAnimated = true;
+
+        statNumbers.forEach(function (number) {
+          var goal = Number(number.getAttribute('data-count')) || 0;
+          var duration = 1200;
+          var startTime = performance.now();
+
+          function animate(now) {
+            var progress = Math.min((now - startTime) / duration, 1);
+            number.textContent = String(Math.floor(progress * goal));
+            if (progress < 1) requestAnimationFrame(animate);
+          }
+
+          requestAnimationFrame(animate);
+        });
+      }
+
+      if (record && 'IntersectionObserver' in window) {
+        var statObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              animateStats();
+              statObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.45 });
+        statObserver.observe(record);
+      } else {
+        animateStats();
+      }
+
+      document.querySelectorAll('.faq-question').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var item = button.closest('.faq-item');
+          var mark = button.querySelector('.faq-mark');
+          if (!item || !mark) return;
+
+          var isOpen = item.classList.contains('open');
+          item.classList.toggle('open');
+          mark.textContent = isOpen ? '＋' : '−';
+        });
+      });
+
+      if (contactForm && formMessage) {
+        contactForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          formMessage.classList.add('show');
+          contactForm.reset();
+        });
+      }
+
+      runSelfTests();
+    });
+  </script>
+</body>
+</html>

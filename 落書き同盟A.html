@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>落書き同盟｜藤沢発・みんなの落書きを地域につなげるプロジェクト</title>
+  <meta name="description" content="落書き同盟は、藤沢を拠点に、子どもから大人まで誰もが自由に描ける場をつくり、落書きを展示・グッズ・地域の交流へつなげていくプロジェクトです。" />
+  <style>
+    :root {
+      --ink: #252525;
+      --muted: #6f6a60;
+      --paper: #fffaf0;
+      --paper-2: #fff3d9;
+      --green: #54a66b;
+      --blue: #4fa6d8;
+      --pink: #f07aa5;
+      --yellow: #f8c94e;
+      --orange: #f29d52;
+      --purple: #8b72d9;
+      --shadow: 0 18px 45px rgba(37, 37, 37, 0.14);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(240, 122, 165, 0.18) 0 8%, transparent 9%),
+        radial-gradient(circle at 84% 10%, rgba(79, 166, 216, 0.18) 0 7%, transparent 8%),
+        radial-gradient(circle at 90% 72%, rgba(84, 166, 107, 0.16) 0 8%, transparent 9%),
+        linear-gradient(135deg, #fffaf0 0%, #fff4de 48%, #fffaf0 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(37,37,37,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,37,37,0.035) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0.18));
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(255, 250, 240, 0.82);
+      border-bottom: 2px dashed rgba(37, 37, 37, 0.12);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50% 46% 54% 48%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(from 20deg, var(--pink), var(--yellow), var(--green), var(--blue), var(--pink));
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+      transform: rotate(-7deg);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #4a453e;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 8px 2px;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 2px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(248, 201, 78, 0.55);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+      z-index: -1;
+    }
+
+    .nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta,
+    .button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(37, 37, 37, 0.14);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: inherit;
+    }
+
+    .nav-cta,
+    .button.primary {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--ink);
+      border: 2px solid rgba(37, 37, 37, 0.12);
+    }
+
+    .nav-cta:hover,
+    .button:hover {
+      transform: translateY(-3px) rotate(-1deg);
+      box-shadow: 0 16px 28px rgba(37, 37, 37, 0.18);
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 74px 22px 54px;
+      min-height: 760px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 2px dashed rgba(37, 37, 37, 0.12);
+      color: #5c554c;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 10px 24px rgba(37, 37, 37, 0.08);
+    }
+
+    .hero h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(45px, 8vw, 96px);
+      line-height: 0.96;
+      letter-spacing: -0.08em;
+    }
+
+    .hero h1 span {
+      display: inline-block;
+      position: relative;
+    }
+
+    .hero h1 .highlight::after {
+      content: "";
+      position: absolute;
+      left: -4px;
+      right: -4px;
+      bottom: 8px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(248, 201, 78, 0.62);
+      z-index: -1;
+      transform: rotate(-1.5deg);
+    }
+
+    .hero-copy {
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.95;
+      color: #504a42;
+      max-width: 640px;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .hero-notes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 34px;
+      max-width: 650px;
+    }
+
+    .note-card {
+      background: rgba(255,255,255,0.78);
+      border: 2px solid rgba(37,37,37,0.08);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 10px 25px rgba(37,37,37,0.08);
+      min-height: 112px;
+    }
+
+    .note-card strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .note-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 700;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 580px;
+    }
+
+    .wall {
+      position: absolute;
+      inset: 20px 0 20px 0;
+      border-radius: 44px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.34)),
+        repeating-linear-gradient(90deg, rgba(37,37,37,0.045) 0 2px, transparent 2px 28px),
+        #f8e7c8;
+      border: 4px solid rgba(37,37,37,0.12);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transform: rotate(1deg);
+    }
+
+    .wall::before,
+    .wall::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(0.2px);
+      opacity: 0.86;
+    }
+
+    .wall::before {
+      width: 260px;
+      height: 180px;
+      left: 28px;
+      top: 52px;
+      border: 12px solid var(--blue);
+      border-left-color: transparent;
+      border-bottom-color: var(--pink);
+      transform: rotate(-16deg);
+    }
+
+    .wall::after {
+      width: 220px;
+      height: 220px;
+      right: 44px;
+      bottom: 82px;
+      border: 14px solid var(--green);
+      border-top-color: var(--yellow);
+      border-right-color: transparent;
+      transform: rotate(24deg);
+    }
+
+    .scribble-line {
+      position: absolute;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: 0.9;
+      transform-origin: center;
+    }
+
+    .l1 { color: var(--pink); width: 180px; height: 10px; left: 52%; top: 18%; transform: rotate(-18deg); }
+    .l2 { color: var(--yellow); width: 120px; height: 12px; left: 18%; bottom: 28%; transform: rotate(23deg); }
+    .l3 { color: var(--purple); width: 200px; height: 9px; right: 10%; top: 44%; transform: rotate(12deg); }
+    .l4 { color: var(--orange); width: 160px; height: 12px; left: 15%; top: 47%; transform: rotate(-7deg); }
+
+    .paper-person {
+      position: absolute;
+      width: 165px;
+      height: 220px;
+      left: 24px;
+      bottom: 0;
+      filter: drop-shadow(0 18px 26px rgba(37,37,37,0.22));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .person-head {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: #ffd6a6;
+      margin: 0 auto;
+      border: 4px solid rgba(37,37,37,0.18);
+      position: relative;
+    }
+
+    .person-head::before,
+    .person-head::after {
+      content: "";
+      position: absolute;
+      top: 30px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ink);
+    }
+
+    .person-head::before { left: 20px; }
+    .person-head::after { right: 20px; }
+
+    .person-body {
+      width: 120px;
+      height: 116px;
+      margin: -2px auto 0;
+      border-radius: 34px 34px 20px 20px;
+      background: var(--blue);
+      border: 4px solid rgba(37,37,37,0.18);
+      position: relative;
+    }
+
+    .person-body::after {
+      content: "✎";
+      position: absolute;
+      right: -48px;
+      top: 18px;
+      font-size: 58px;
+      color: var(--pink);
+      transform: rotate(-18deg);
+    }
+
+    .floating-card {
+      position: absolute;
+      right: -6px;
+      top: 34px;
+      width: 205px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: var(--shadow);
+      border: 2px solid rgba(37,37,37,0.08);
+      transform: rotate(-4deg);
+      animation: float 5s ease-in-out infinite reverse;
+    }
+
+    .floating-card strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .floating-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
+    }
+
+    section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 78px 22px;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .section-title.center {
+      text-align: center;
+      justify-items: center;
+    }
+
+    .section-title .tag {
+      display: inline-block;
+      width: fit-content;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(84,166,107,0.15);
+      color: #2f7342;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(31px, 4.8vw, 58px);
+      line-height: 1.12;
+      letter-spacing: -0.05em;
+    }
+
+    .section-title p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.95;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .big-card,
+    .soft-card {
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.74);
+      border: 2px solid rgba(37,37,37,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .big-card {
+      padding: 34px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .big-card::after {
+      content: "らくがき";
+      position: absolute;
+      right: -18px;
+      bottom: 10px;
+      font-size: 92px;
+      font-weight: 900;
+      letter-spacing: -0.12em;
+      color: rgba(248,201,78,0.42);
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    .big-card h3 {
+      margin: 0 0 16px;
+      font-size: 32px;
+      line-height: 1.35;
+    }
+
+    .big-card p,
+    .soft-card p {
+      color: var(--muted);
+      line-height: 1.95;
+      font-weight: 650;
+    }
+
+    .tab-panel {
+      padding: 26px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .tab-button {
+      border: 2px solid rgba(37,37,37,0.1);
+      background: #fff;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .tab-button.active {
+      background: var(--ink);
+      color: #fff;
+      transform: rotate(-1deg);
+    }
+
+    .tab-content {
+      min-height: 260px;
+      display: none;
+      animation: pop 0.35s ease both;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content h3 {
+      margin: 6px 0 10px;
+      font-size: 28px;
+    }
+
+    .tab-content ul {
+      margin: 16px 0 0;
+      padding-left: 1.1em;
+      color: var(--muted);
+      line-height: 1.95;
+      font-weight: 700;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .values {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .value-card {
+      position: relative;
+      padding: 28px 22px;
+      min-height: 260px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 14px 34px rgba(37,37,37,0.09);
+      border: 2px solid rgba(37,37,37,0.08);
+      overflow: hidden;
+      transition: transform 0.25s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+
+    .value-card:nth-child(1) { --accent: var(--pink); }
+    .value-card:nth-child(2) { --accent: var(--blue); }
+    .value-card:nth-child(3) { --accent: var(--yellow); }
+    .value-card:nth-child(4) { --accent: var(--green); }
+
+    .value-card::before {
+      content: "";
+      position: absolute;
+      width: 135px;
+      height: 135px;
+      border-radius: 50%;
+      right: -42px;
+      top: -42px;
+      background: color-mix(in srgb, var(--accent) 32%, transparent);
+    }
+
+    .value-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 25px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 18px rgba(37,37,37,0.12);
+    }
+
+    .value-card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    .value-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.82;
+      font-weight: 650;
+    }
+
+    .activity-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .activity-card {
+      padding: 28px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.8);
+      border: 2px solid rgba(37,37,37,0.08);
+      box-shadow: 0 12px 28px rgba(37,37,37,0.08);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .activity-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 900;
+      transform: rotate(-5deg);
+    }
+
+    .activity-card h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .activity-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.85;
+      font-weight: 650;
+    }
+
+    .record {
+      border-radius: 42px;
+      padding: 42px;
+      background:
+        linear-gradient(135deg, rgba(37,37,37,0.82), rgba(37,37,37,0.66)),
+        radial-gradient(circle at 20% 20%, rgba(240,122,165,0.75), transparent 25%),
+        radial-gradient(circle at 80% 65%, rgba(79,166,216,0.75), transparent 28%),
+        #252525;
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .record::after {
+      content: "Fujisawa";
+      position: absolute;
+      right: -20px;
+      bottom: -26px;
+      font-size: 118px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.08);
+      letter-spacing: -0.08em;
+    }
+
+    .record h2 {
+      margin: 0 0 16px;
+      font-size: clamp(34px, 5vw, 64px);
+      letter-spacing: -0.06em;
+      line-height: 1.08;
+    }
+
+    .record p {
+      color: rgba(255,255,255,0.78);
+      line-height: 1.95;
+      font-weight: 650;
+      font-size: 16px;
+    }
+
+    .record-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-content: center;
+    }
+
+    .stat {
+      min-height: 160px;
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(10px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 42px;
+      margin-bottom: 8px;
+      color: var(--yellow);
+    }
+
+    .stat span {
+      color: rgba(255,255,255,0.82);
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .gallery-tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .filter-button {
+      border: 2px solid rgba(37,37,37,0.1);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      padding: 10px 16px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .filter-button.active {
+      color: #fff;
+      background: var(--ink);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .art-card {
+      border-radius: 28px;
+      min-height: 275px;
+      background: rgba(255,255,255,0.82);
+      border: 2px solid rgba(37,37,37,0.08);
+      box-shadow: 0 14px 30px rgba(37,37,37,0.08);
+      overflow: hidden;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .art-card.hide {
+      display: none;
+    }
+
+    .art-card:hover {
+      transform: translateY(-7px) rotate(1deg);
+    }
+
+    .art-image {
+      height: 170px;
+      position: relative;
+      background: #fff2cf;
+      overflow: hidden;
+    }
+
+    .art-image::before,
+    .art-image::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 10px solid var(--pink);
+      width: 130px;
+      height: 95px;
+      left: 28px;
+      top: 28px;
+      transform: rotate(-18deg);
+    }
+
+    .art-image::after {
+      width: 170px;
+      height: 120px;
+      left: auto;
+      right: -30px;
+      top: 55px;
+      border-color: var(--blue);
+      border-left-color: transparent;
+      transform: rotate(14deg);
+    }
+
+    .art-card:nth-child(2) .art-image { background: #eef8ff; }
+    .art-card:nth-child(2) .art-image::before { border-color: var(--green); }
+    .art-card:nth-child(2) .art-image::after { border-color: var(--yellow); }
+    .art-card:nth-child(3) .art-image { background: #fff0f7; }
+    .art-card:nth-child(3) .art-image::before { border-color: var(--purple); }
+    .art-card:nth-child(4) .art-image { background: #effced; }
+    .art-card:nth-child(5) .art-image { background: #fff7de; }
+    .art-card:nth-child(6) .art-image { background: #f2efff; }
+
+    .art-body {
+      padding: 20px;
+    }
+
+    .art-body h3 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    .art-body p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 650;
+      font-size: 14px;
+    }
+
+    .worker-box {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: center;
+      padding: 36px;
+      border-radius: 42px;
+      background: rgba(255,255,255,0.78);
+      border: 2px solid rgba(37,37,37,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .worker-box h2 {
+      margin: 0 0 16px;
+      font-size: clamp(30px, 4.5vw, 54px);
+      line-height: 1.14;
+      letter-spacing: -0.05em;
+    }
+
+    .worker-box p {
+      color: var(--muted);
+      line-height: 1.95;
+      font-weight: 650;
+    }
+
+    .worker-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .worker-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(248,201,78,0.18);
+      font-weight: 750;
+      line-height: 1.75;
+    }
+
+    .future-board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .future-card {
+      padding: 26px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.78);
+      border: 2px solid rgba(37,37,37,0.08);
+      box-shadow: 0 12px 30px rgba(37,37,37,0.08);
+    }
+
+    .future-card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    .future-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.85;
+      font-weight: 650;
+    }
+
+    .topic-box {
+      margin-top: 28px;
+      padding: 28px;
+      border-radius: 32px;
+      background: rgba(37,37,37,0.88);
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .topic-box h3 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .topic-box p {
+      margin: 0;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.8;
+      font-weight: 650;
+    }
+
+    .contact {
+      padding-bottom: 100px;
+    }
+
+    .contact-card {
+      border-radius: 44px;
+      background: #fff;
+      border: 2px solid rgba(37,37,37,0.08);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+    }
+
+    .contact-side {
+      padding: 42px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 25% 28%, rgba(248,201,78,0.92), transparent 24%),
+        radial-gradient(circle at 75% 65%, rgba(79,166,216,0.8), transparent 26%),
+        linear-gradient(135deg, #252525, #45413a);
+    }
+
+    .contact-side h2 {
+      margin: 0 0 18px;
+      font-size: 44px;
+      letter-spacing: -0.06em;
+      line-height: 1.08;
+    }
+
+    .contact-side p {
+      color: rgba(255,255,255,0.82);
+      line-height: 1.9;
+      font-weight: 650;
+    }
+
+    .contact-form {
+      padding: 42px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-weight: 900;
+      color: #4d473f;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 2px solid rgba(37,37,37,0.12);
+      background: #fffaf0;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(79,166,216,0.16);
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-message {
+      display: none;
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: rgba(84,166,107,0.14);
+      color: #286a3a;
+      font-weight: 900;
+      line-height: 1.65;
+    }
+
+    .form-message.show {
+      display: block;
+    }
+
+    .footer {
+      border-top: 2px dashed rgba(37,37,37,0.12);
+      background: rgba(255,250,240,0.8);
+      padding: 28px 22px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 750;
+      line-height: 1.7;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    }
+
+    @media (max-width: 920px) {
+      .menu-button {
+        display: block;
+      }
+
+      .nav {
+        position: fixed;
+        top: 72px;
+        left: 16px;
+        right: 16px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        background: rgba(255,255,255,0.96);
+        padding: 18px;
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        border: 2px solid rgba(37,37,37,0.08);
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .hero,
+      .about-grid,
+      .activity-wrap,
+      .record,
+      .worker-box,
+      .contact-card {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 46px;
+        min-height: auto;
+      }
+
+      .hero-art {
+        min-height: 500px;
+      }
+
+      .values,
+      .future-board,
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero-notes,
+      .values,
+      .future-board,
+      .gallery,
+      .record-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 52px;
+      }
+
+      .hero-art {
+        min-height: 420px;
+      }
+
+      .floating-card {
+        right: 12px;
+        top: 18px;
+        width: 180px;
+      }
+
+      .paper-person {
+        transform: scale(0.82);
+        transform-origin: bottom left;
+      }
+
+      section {
+        padding: 56px 18px;
+      }
+
+      .record,
+      .worker-box,
+      .contact-side,
+      .contact-form {
+        padding: 28px;
+      }
+
+      .activity-card {
+        grid-template-columns: 1fr;
+      }
+
+      .topic-box {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#top" class="logo" aria-label="落書き同盟 トップへ">
+        <span class="logo-mark">✎</span>
+        <span>落書き同盟</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#about">落書き同盟とは</a>
+        <a href="#activity">活動内容</a>
+        <a href="#record">これまで</a>
+        <a href="#worker">運営の考え方</a>
+        <a href="#contact" class="nav-cta">参加する</a>
+      </nav>
+      <button class="menu-button" id="menuButton" aria-label="メニューを開く">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-text reveal">
+        <div class="eyebrow">藤沢発・みんなの表現を地域へ</div>
+        <h1>
+          <span>落書きから、</span><br>
+          <span class="highlight">まちが少し</span><br>
+          <span>やさしくなる。</span>
+        </h1>
+        <p class="hero-copy">
+          うまい・下手じゃなくて、その人から自然に出てくる線や色を大切にする。<br>
+          落書き同盟は、子どもも大人も、誰でも自由に描ける場をつくり、描いた落書きを展示・グッズ・地域の交流へつなげていくプロジェクトです。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact">一緒にやってみる</a>
+          <a class="button secondary" href="#activity">活動を見る</a>
+        </div>
+        <div class="hero-notes">
+          <div class="note-card">
+            <strong>描く</strong>
+            <p>大きな紙や壁に、気軽に線を引いてみる。</p>
+          </div>
+          <div class="note-card">
+            <strong>混ざる</strong>
+            <p>親子、地域、世代、立場をこえて一緒に楽しむ。</p>
+          </div>
+          <div class="note-card">
+            <strong>広がる</strong>
+            <p>落書きが展示やグッズ、地域の記憶になる。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-art reveal" aria-hidden="true">
+        <div class="wall">
+          <span class="scribble-line l1"></span>
+          <span class="scribble-line l2"></span>
+          <span class="scribble-line l3"></span>
+          <span class="scribble-line l4"></span>
+        </div>
+        <div class="paper-person">
+          <div class="person-head"></div>
+          <div class="person-body"></div>
+        </div>
+        <div class="floating-card">
+          <strong>絵心、あります。</strong>
+          <p>「ない」と思っているだけかも。まずは一本の線から。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <div class="section-title">
+        <span class="tag">ABOUT</span>
+        <h2>落書き同盟とは</h2>
+        <p>
+          落書き同盟は、誰かに評価されるための美術ではなく、日常の中から自然に生まれる表現を大切にする活動です。描いたものをその場で終わらせず、人・場所・地域へつないでいきます。
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <article class="big-card">
+          <div>
+            <h3>「絵が苦手」から始まるアートがある。</h3>
+            <p>
+              子どもの線、大人のいたずら描き、高齢者の記憶、言葉にならない気持ち。落書きには、きれいに整える前の、その人らしさがあります。
+            </p>
+            <p>
+              私たちは、その小さな表現を集めて、展示やグッズ、空間づくり、地域のデザインへと育てていきたいと考えています。
+            </p>
+          </div>
+        </article>
+
+        <article class="soft-card tab-panel">
+          <div class="tabs" role="tablist" aria-label="落書き同盟の考え方">
+            <button class="tab-button active" data-tab="tab1">大切にすること</button>
+            <button class="tab-button" data-tab="tab2">参加できる人</button>
+            <button class="tab-button" data-tab="tab3">目指す姿</button>
+          </div>
+
+          <div class="tab-content active" id="tab1">
+            <h3>うまさより、出てきた線を大切に。</h3>
+            <p>
+              落書きは、完成度よりも「描いてみた」という一歩が魅力です。誰かの線に誰かの色が重なって、ひとりでは作れない景色が生まれます。
+            </p>
+            <ul>
+              <li>自由に描ける安心感</li>
+              <li>否定されない表現の場</li>
+              <li>人と人がゆるく混ざる時間</li>
+            </ul>
+          </div>
+
+          <div class="tab-content" id="tab2">
+            <h3>子どもも、大人も、絵が苦手な人も。</h3>
+            <p>
+              親子、学生、地域の人、福祉や教育に関わる人、アートが好きな人、なんとなく気になる人。特別な資格や技術はいりません。
+            </p>
+            <ul>
+              <li>親子で自由に描きたい人</li>
+              <li>地域活動にゆるく関わりたい人</li>
+              <li>自分の表現を誰かと共有したい人</li>
+            </ul>
+          </div>
+
+          <div class="tab-content" id="tab3">
+            <h3>落書きを、地域の記憶へ。</h3>
+            <p>
+              ワークショップで終わらせず、展示、グッズ、施設の彩り、地域イベントなどにつなげることで、何気ない落書きをまちの中に残していきます。
+            </p>
+            <ul>
+              <li>地域施設での展示</li>
+              <li>落書きから生まれるグッズ</li>
+              <li>藤沢発の新しい表現文化</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-title center">
+        <span class="tag">VALUES</span>
+        <h2>4つの合言葉</h2>
+        <p>落書き同盟が大切にしたい、シンプルだけど強い考え方です。</p>
+      </div>
+      <div class="values">
+        <article class="value-card">
+          <div class="value-icon">1</div>
+          <h3>自由に描く</h3>
+          <p>正解を探す前に、まず線を引く。思いつきも、はみ出しも、表現の一部です。</p>
+        </article>
+        <article class="value-card">
+          <div class="value-icon">2</div>
+          <h3>混ざって遊ぶ</h3>
+          <p>子どもも大人も、立場をこえて同じ紙の上で出会う。そこから会話が生まれます。</p>
+        </article>
+        <article class="value-card">
+          <div class="value-icon">3</div>
+          <h3>地域に残す</h3>
+          <p>描いて終わりではなく、展示や記録としてまちの中に残していきます。</p>
+        </article>
+        <article class="value-card">
+          <div class="value-icon">4</div>
+          <h3>形を変える</h3>
+          <p>落書きがグッズやデザイン、空間づくりに変わる。小さな線が新しい価値になります。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="activity" class="reveal">
+      <div class="section-title">
+        <span class="tag">ACTIVITY</span>
+        <h2>活動内容</h2>
+        <p>
+          最初は小さく、でも広がりは大きく。描く場づくりから、地域との連携、グッズ化、情報発信まで、できる人ができることを持ち寄って進めていきます。
+        </p>
+      </div>
+      <div class="activity-wrap">
+        <article class="activity-card">
+          <div class="activity-number">01</div>
+          <div>
+            <h3>落書きワークショップ</h3>
+            <p>大きな紙や壁面に、参加者が自由に描く場をつくります。親子イベント、地域イベント、福祉・教育の場にも展開できます。</p>
+          </div>
+        </article>
+        <article class="activity-card">
+          <div class="activity-number">02</div>
+          <div>
+            <h3>共同制作・展示</h3>
+            <p>みんなで描いた作品を、施設やイベントで展示。描いた人があとから見に行ける、地域の記憶として残る形を目指します。</p>
+          </div>
+        </article>
+        <article class="activity-card">
+          <div class="activity-number">03</div>
+          <div>
+            <h3>グッズ・デザイン化</h3>
+            <p>落書きの一部を切り出して、Tシャツ、ステッカー、ポスター、ロゴ、公共デザインなどへ展開する可能性を探ります。</p>
+          </div>
+        </article>
+        <article class="activity-card">
+          <div class="activity-number">04</div>
+          <div>
+            <h3>ホームページ・SNS発信</h3>
+            <p>活動の記録、作品紹介、参加募集、協力者募集を発信。落書き同盟のアジトとして、情報が集まる場所をつくります。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="record" class="reveal">
+      <div class="record">
+        <div>
+          <h2>これまでの一歩</h2>
+          <p>
+            これまでに、2歳から101歳までの参加者が関わった共同作品が、藤沢市民会館のクロージングイベントで展示されました。
+          </p>
+          <p>
+            気軽に描いた落書きが、地域の公共的な場所に飾られる。そんな体験が、落書き同盟の大きな原点になっています。
+          </p>
+        </div>
+        <div class="record-stats">
+          <div class="stat">
+            <strong data-count="2">0</strong>
+            <span>歳から参加</span>
+          </div>
+          <div class="stat">
+            <strong data-count="101">0</strong>
+            <span>歳まで参加</span>
+          </div>
+          <div class="stat">
+            <strong data-count="40">0</strong>
+            <span>人ほどで共同制作</span>
+          </div>
+          <div class="stat">
+            <strong>藤沢</strong>
+            <span>市民会館で展示</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-title center">
+        <span class="tag">GALLERY</span>
+        <h2>落書きが変身する場所</h2>
+        <p>実際の作品写真が入ったら、ここをギャラリーとして使えます。今は試作用のイメージ枠です。</p>
+      </div>
+
+      <div class="gallery-tools">
+        <button class="filter-button active" data-filter="all">すべて</button>
+        <button class="filter-button" data-filter="workshop">ワークショップ</button>
+        <button class="filter-button" data-filter="goods">グッズ化</button>
+        <button class="filter-button" data-filter="space">空間づくり</button>
+      </div>
+
+      <div class="gallery">
+        <article class="art-card" data-category="workshop">
+          <div class="art-image"></div>
+          <div class="art-body">
+            <h3>大きな紙にみんなで描く</h3>
+            <p>線が重なって、思いがけないひとつの作品になります。</p>
+          </div>
+        </article>
+        <article class="art-card" data-category="space">
+          <div class="art-image"></div>
+          <div class="art-body">
+            <h3>壁や空間を彩る</h3>
+            <p>使われていなかった場所を、みんなの表現で明るくします。</p>
+          </div>
+        </article>
+        <article class="art-card" data-category="goods">
+          <div class="art-image"></div>
+          <div class="art-body">
+            <h3>落書きからグッズへ</h3>
+            <p>子どもの線や地域の絵が、ステッカーやTシャツになるかも。</p>
+          </div>
+        </article>
+        <article class="art-card" data-category="workshop">
+          <div class="art-image"></div>
+          <div class="art-body">
+            <h3>親子で参加</h3>
+            <p>子どもだけでなく、大人も一緒に描く時間を大切にします。</p>
+          </div>
+        </article>
+        <article class="art-card" data-category="space">
+          <div class="art-image"></div>
+          <div class="art-body">
+            <h3>地域施設で展示</h3>
+            <p>描いたものがまちの中で見える形になると、誇りになります。</p>
+          </div>
+        </article>
+        <article class="art-card" data-category="goods">
+          <div class="art-image"></div>
+          <div class="art-body">
+            <h3>作品を循環させる</h3>
+            <p>小さな表現を、活動資金や次のイベントにつなげていきます。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="worker" class="reveal">
+      <div class="worker-box">
+        <div>
+          <span class="tag">WORKERS COLLECTIVE</span>
+          <h2>できる人が、できることを持ち寄る。</h2>
+          <p>
+            落書き同盟は、将来的にワーカーズ・コレクティブ型の運営も視野に入れています。誰かひとりが背負うのではなく、描く人、企画する人、広報する人、Webを作る人、場所をつなぐ人が、それぞれの得意を持ち寄る形です。
+          </p>
+          <p>
+            まだ始まったばかりだからこそ、完成された組織ではなく、みんなで育てていく余白を大切にします。
+          </p>
+        </div>
+        <div class="worker-list">
+          <div class="worker-item">✎ 描く人：自由な表現を生み出す</div>
+          <div class="worker-item">🤝 つなぐ人：地域や施設、団体とつなげる</div>
+          <div class="worker-item">💻 作る人：HP・SNS・印刷物で発信する</div>
+          <div class="worker-item">🌱 支える人：活動が続く仕組みを一緒に考える</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-title center">
+        <span class="tag">NEXT</span>
+        <h2>これからやりたいこと</h2>
+        <p>まずは小さく集まり、話し、描き、試してみるところから始めます。</p>
+      </div>
+      <div class="future-board">
+        <article class="future-card">
+          <h3>月1ミーティング</h3>
+          <p>落書き同盟の活動内容やHP、展示、グッズ化について話す場をつくります。</p>
+        </article>
+        <article class="future-card">
+          <h3>作品アーカイブ</h3>
+          <p>描いた作品を写真やコメントと一緒に残し、HPやSNSで紹介できるようにします。</p>
+        </article>
+        <article class="future-card">
+          <h3>地域連携</h3>
+          <p>藤沢の施設、団体、お店、イベントと連携し、落書きが活躍する場所を増やします。</p>
+        </article>
+      </div>
+
+      <div class="topic-box">
+        <div>
+          <h3>今日の落書きお題</h3>
+          <p id="topicText">ボタンを押すと、気軽に描けるお題が出ます。</p>
+        </div>
+        <button class="button secondary" id="topicButton">お題を出す</button>
+      </div>
+    </section>
+
+    <section id="contact" class="contact reveal">
+      <div class="contact-card">
+        <div class="contact-side">
+          <h2>一緒に、一本の線から始めませんか。</h2>
+          <p>
+            参加したい人、場所を貸せる人、展示やイベントで連携したい人、Webや印刷で手伝える人。まずは気軽に声をかけてください。
+          </p>
+          <p>
+            落書き同盟は、藤沢から少しずつ広がっていく途中のプロジェクトです。
+          </p>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="field">
+            <label for="name">お名前</label>
+            <input id="name" name="name" type="text" placeholder="例：落書き 太郎" required>
+          </div>
+          <div class="field">
+            <label for="type">関わり方</label>
+            <select id="type" name="type">
+              <option>参加してみたい</option>
+              <option>親子で参加したい</option>
+              <option>施設・団体として相談したい</option>
+              <option>Web・印刷・企画で協力したい</option>
+              <option>その他</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">メッセージ</label>
+            <textarea id="message" name="message" placeholder="気になること、やってみたいことを書いてください。"></textarea>
+          </div>
+          <button class="button primary" type="submit">送信する</button>
+          <div class="form-message" id="formMessage">
+            ありがとうございます！これは試作ページなので実際には送信されていません。フォーム連携を入れる場合は、Googleフォーム・Formspree・Flaskなどに接続できます。
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>落書き同盟｜藤沢発・みんなの落書きを地域につなげるプロジェクト</div>
+    <div>© Rakugaki Doumei. Trial Website.</div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const nav = document.getElementById('nav');
+
+    menuButton.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      menuButton.textContent = nav.classList.contains('open') ? '×' : '☰';
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        menuButton.textContent = '☰';
+      });
+    });
+
+    const revealItems = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.tab;
+
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        button.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    const statNumbers = document.querySelectorAll('[data-count]');
+    let statsAnimated = false;
+
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !statsAnimated) {
+          statsAnimated = true;
+          statNumbers.forEach(number => {
+            const goal = Number(number.dataset.count);
+            const duration = 1200;
+            const startTime = performance.now();
+
+            const animate = (now) => {
+              const progress = Math.min((now - startTime) / duration, 1);
+              const current = Math.floor(progress * goal);
+              number.textContent = current;
+              if (progress < 1) requestAnimationFrame(animate);
+            };
+
+            requestAnimationFrame(animate);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const recordSection = document.getElementById('record');
+    statObserver.observe(recordSection);
+
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const artCards = document.querySelectorAll('.art-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        artCards.forEach(card => {
+          const show = filter === 'all' || card.dataset.category === filter;
+          card.classList.toggle('hide', !show);
+        });
+      });
+    });
+
+    const topics = [
+      '今日の気分を、線だけで描いてみよう。',
+      '藤沢の好きな場所を、色で表してみよう。',
+      '子どものころの自分に渡したい落書きを描こう。',
+      '「やさしさ」を形にしたら、どんな模様になる？',
+      '隣の人の線に、ひとつ色を足してみよう。',
+      '失敗した線を、あえて主役にしてみよう。',
+      '10秒だけ手を止めずに描いてみよう。'
+    ];
+
+    const topicButton = document.getElementById('topicButton');
+    const topicText = document.getElementById('topicText');
+
+    topicButton.addEventListener('click', () => {
+      const topic = topics[Math.floor(Math.random() * topics.length)];
+      topicText.textContent = topic;
+      topicText.animate([
+        { transform: 'translateY(8px)', opacity: 0 },
+        { transform: 'translateY(0)', opacity: 1 }
+      ], {
+        duration: 300,
+        easing: 'ease-out'
+      });
+    });
+
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      formMessage.classList.add('show');
+      contactForm.reset();
+    });
+</script>
+</body>
+</html>

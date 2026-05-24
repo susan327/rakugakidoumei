@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>落書き同盟｜HP案を選べます</title>
+  <meta name="description" content="落書き同盟のホームページ案を、参加者向け・事業者向け・文化アーカイブ向けの3つの方向から比較できるトップページです。" />
+  <style>
+    :root {
+      --bg: #fffaf2;
+      --paper: #ffffff;
+      --ink: #252525;
+      --muted: #706a62;
+      --line: rgba(37, 37, 37, 0.1);
+      --shadow: 0 16px 36px rgba(37, 37, 37, 0.08);
+      --radius: 22px;
+      --a: #f3a3bd;
+      --b: #79bf8f;
+      --c: #333333;
+      --accent: #f0c96a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", system-ui, sans-serif;
+      background: var(--bg);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .header {
+      padding: 28px 0 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0.06em;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .header-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .hero {
+      padding: 76px 0 52px;
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 7vw, 78px);
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+    }
+
+    h1 span {
+      position: relative;
+      display: inline-block;
+    }
+
+    h1 span::after {
+      content: "";
+      position: absolute;
+      left: -5px;
+      right: -5px;
+      bottom: 8px;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(240, 201, 106, 0.45);
+      z-index: -1;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 26px auto 0;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 650;
+    }
+
+    .lead strong {
+      color: var(--ink);
+    }
+
+    .choose-note {
+      max-width: 860px;
+      margin: 0 auto 30px;
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--muted);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      padding: 0 0 72px;
+    }
+
+    .card {
+      position: relative;
+      min-height: 360px;
+      padding: 26px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 46px rgba(37, 37, 37, 0.12);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      background: var(--line-color);
+    }
+
+    .card.a { --line-color: var(--a); }
+    .card.b { --line-color: var(--b); }
+    .card.c { --line-color: var(--c); }
+
+    .card-label {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 18px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #f7f4ef;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: clamp(27px, 3vw, 34px);
+      line-height: 1.25;
+      letter-spacing: -0.04em;
+    }
+
+    .target {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .point-list {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 7px;
+    }
+
+    .point-list li {
+      color: #554f48;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .point-list li::before {
+      content: "・";
+      color: var(--line-color);
+      font-weight: 900;
+    }
+
+    .card-link {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 15px;
+      border-radius: 16px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 900;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .card-link:hover {
+      transform: translateX(3px);
+      background: #000;
+    }
+
+    .guide {
+      padding: 0 0 74px;
+    }
+
+    .guide-box {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .guide-main,
+    .guide-list {
+      padding: 26px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+    }
+
+    .guide-main h2 {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 3.4vw, 42px);
+      line-height: 1.25;
+      letter-spacing: -0.04em;
+    }
+
+    .guide-main p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .guide-row {
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 18px;
+    }
+
+    .guide-row:first-child {
+      padding-top: 0;
+    }
+
+    .guide-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .guide-row strong {
+      font-size: 13px;
+    }
+
+    .guide-row span {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .footer {
+      padding: 28px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .header-note {
+        text-align: left;
+      }
+
+      .hero {
+        padding-top: 54px;
+      }
+
+      .cards,
+      .guide-box {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100% - 28px, 1120px);
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .choose-note,
+      .card,
+      .guide-main,
+      .guide-list {
+        padding: 22px;
+      }
+
+      .guide-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header wrap reveal">
+    <a href="#top" class="brand" aria-label="落書き同盟 HP案トップへ">
+      落書き同盟
+      <small>HP案トップページ</small>
+    </a>
+    <p class="header-note">A案・B案・C案を比較して、落書き同盟らしい見せ方を選べます。</p>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap reveal">
+      <div class="tag">落書き同盟｜HP案まとめ</div>
+      <h1>
+        HP案を、<br>
+        <span>選べます。</span>
+      </h1>
+      <p class="lead">
+        <strong>落書きは、誰かがここにいた記録。</strong><br>
+        参加したい人に届く見せ方、事業者や施設に伝わる見せ方、文化として残す見せ方。3つの方向から比較できます。
+      </p>
+    </section>
+
+    <section class="wrap reveal">
+      <div class="choose-note">
+        どれが正解というより、最初に誰へ届けたいかで選ぶためのページです。
+      </div>
+    </section>
+
+    <section class="cards wrap">
+      <article class="card a reveal">
+        <div>
+          <span class="card-label">A案</span>
+          <h2>参加したくなる版</h2>
+          <p class="target">個人・親子・イベント参加者向け</p>
+          <p>
+            描く楽しさやイベント感を前面に出した案。「ちょっと参加してみたい」と思ってもらう入口に向いています。
+          </p>
+          <ul class="point-list">
+            <li>明るく親しみやすい</li>
+            <li>子ども・親子向けに強い</li>
+            <li>ワクワク感が伝わる</li>
+          </ul>
+        </div>
+        <a class="card-link" href="落書き同盟A.html">
+          <span>A案を見る</span>
+          <span>→</span>
+        </a>
+      </article>
+
+      <article class="card b reveal">
+        <div>
+          <span class="card-label">B案</span>
+          <h2>相談しやすい版</h2>
+          <p class="target">事業者・施設・団体向け</p>
+          <p>
+            安心感と活動内容の分かりやすさを重視した案。開催相談や地域連携につなげやすい入口です。
+          </p>
+          <ul class="point-list">
+            <li>信頼感が出やすい</li>
+            <li>活動内容を説明しやすい</li>
+            <li>地域・施設連携に向く</li>
+          </ul>
+        </div>
+        <a class="card-link" href="落書き同盟B.html">
+          <span>B案を見る</span>
+          <span>→</span>
+        </a>
+      </article>
+
+      <article class="card c reveal">
+        <div>
+          <span class="card-label">C案</span>
+          <h2>記録として残す版</h2>
+          <p class="target">文化・展示・アーカイブ向け</p>
+          <p>
+            落書きを記憶や文化として見せる案。理念や実績を印象深く伝えたいときに向いています。
+          </p>
+          <ul class="point-list">
+            <li>落ち着いた印象</li>
+            <li>コピーや理念が残る</li>
+            <li>展示・実績紹介に向く</li>
+          </ul>
+        </div>
+        <a class="card-link" href="落書き同盟C.html">
+          <span>C案を見る</span>
+          <span>→</span>
+        </a>
+      </article>
+    </section>
+
+    <section class="guide wrap reveal">
+      <div class="guide-box">
+        <article class="guide-main">
+          <h2>選ぶ基準もシンプルに。</h2>
+          <p>
+            参加者を増やしたいならA案。施設や団体に相談してもらいたいならB案。理念や実績をしっかり残したいならC案。用途に合わせて見比べられます。
+          </p>
+        </article>
+        <div class="guide-list">
+          <div class="guide-row">
+            <strong>A案</strong>
+            <span>楽しそう、参加したい、親子で行ってみたい。</span>
+          </div>
+          <div class="guide-row">
+            <strong>B案</strong>
+            <span>安心できる、相談しやすい、施設や団体に説明しやすい。</span>
+          </div>
+          <div class="guide-row">
+            <strong>C案</strong>
+            <span>理念が残る、実績が映える、文化活動として印象に残る。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    落書き同盟 HP案トップページ
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const revealTargets = document.querySelectorAll('.reveal');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        revealTargets.forEach(function(target) {
+          observer.observe(target);
+        });
+      } else {
+        revealTargets.forEach(function(target) {
+          target.classList.add('visible');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
